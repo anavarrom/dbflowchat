@@ -44,6 +44,9 @@ public class CacheConfiguration {
             createCache(cm, dbflow.chat.domain.User.class.getName());
             createCache(cm, dbflow.chat.domain.Authority.class.getName());
             createCache(cm, dbflow.chat.domain.User.class.getName() + ".authorities");
+            createCache(cm, dbflow.chat.domain.Chat.class.getName());
+            createCache(cm, dbflow.chat.domain.Chat.class.getName() + ".messages");
+            createCache(cm, dbflow.chat.domain.Message.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
