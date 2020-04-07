@@ -2,6 +2,22 @@
     "name": "Chat",
     "fields": [
         {
+            "fieldName": "owner",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ownerId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "to",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "toId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "subject",
             "fieldType": "String"
         },

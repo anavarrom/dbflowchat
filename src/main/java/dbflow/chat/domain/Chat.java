@@ -28,6 +28,18 @@ public class Chat implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "owner")
+    private String owner;
+
+    @Column(name = "owner_id")
+    private Long ownerId;
+
+    @Column(name = "jhi_to")
+    private String to;
+
+    @Column(name = "to_id")
+    private Long toId;
+
     @Column(name = "subject")
     private String subject;
 
@@ -52,6 +64,58 @@ public class Chat implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public Chat owner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public Chat ownerId(Long ownerId) {
+        this.ownerId = ownerId;
+        return this;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public Chat to(String to) {
+        this.to = to;
+        return this;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Long getToId() {
+        return toId;
+    }
+
+    public Chat toId(Long toId) {
+        this.toId = toId;
+        return this;
+    }
+
+    public void setToId(Long toId) {
+        this.toId = toId;
     }
 
     public String getSubject() {
@@ -152,6 +216,10 @@ public class Chat implements Serializable {
     public String toString() {
         return "Chat{" +
             "id=" + getId() +
+            ", owner='" + getOwner() + "'" +
+            ", ownerId=" + getOwnerId() +
+            ", to='" + getTo() + "'" +
+            ", toId=" + getToId() +
             ", subject='" + getSubject() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", lastMessage='" + getLastMessage() + "'" +
