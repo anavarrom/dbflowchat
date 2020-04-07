@@ -1,0 +1,43 @@
+{
+    "name": "Chat",
+    "fields": [
+        {
+            "fieldName": "subject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastMessage",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "ChatType",
+            "fieldValues": "NOTIFICATION"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "chat",
+            "relationshipName": "message"
+        }
+    ],
+    "changelogDate": "20200407155300",
+    "entityTableName": "chat",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "dbflowchat",
+    "applications": "*",
+    "microserviceName": "dbflowchat",
+    "angularJSSuffix": "mySuffix"
+}
