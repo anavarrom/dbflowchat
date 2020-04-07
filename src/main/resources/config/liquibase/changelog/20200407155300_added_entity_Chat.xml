@@ -15,6 +15,18 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="owner" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="owner_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="jhi_to" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="to_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="subject" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -50,6 +62,10 @@
                   separator=";"
                   tableName="chat">
             <column name="id" type="numeric"/>
+            <column name="owner" type="string"/>
+            <column name="owner_id" type="numeric"/>
+            <column name="jhi_to" type="string"/>
+            <column name="to_id" type="numeric"/>
             <column name="subject" type="string"/>
             <column name="created_date" type="date"/>
             <column name="last_message" type="date"/>

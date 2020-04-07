@@ -38,6 +38,18 @@ import dbflow.chat.domain.enumeration.ChatType;
 @WithMockUser
 public class ChatResourceIT {
 
+    private static final String DEFAULT_OWNER = "AAAAAAAAAA";
+    private static final String UPDATED_OWNER = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_OWNER_ID = 1L;
+    private static final Long UPDATED_OWNER_ID = 2L;
+
+    private static final String DEFAULT_TO = "AAAAAAAAAA";
+    private static final String UPDATED_TO = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_TO_ID = 1L;
+    private static final Long UPDATED_TO_ID = 2L;
+
     private static final String DEFAULT_SUBJECT = "AAAAAAAAAA";
     private static final String UPDATED_SUBJECT = "BBBBBBBBBB";
 
@@ -75,6 +87,10 @@ public class ChatResourceIT {
      */
     public static Chat createEntity(EntityManager em) {
         Chat chat = new Chat()
+            .owner(DEFAULT_OWNER)
+            .ownerId(DEFAULT_OWNER_ID)
+            .to(DEFAULT_TO)
+            .toId(DEFAULT_TO_ID)
             .subject(DEFAULT_SUBJECT)
             .createdDate(DEFAULT_CREATED_DATE)
             .lastMessage(DEFAULT_LAST_MESSAGE)
@@ -89,6 +105,10 @@ public class ChatResourceIT {
      */
     public static Chat createUpdatedEntity(EntityManager em) {
         Chat chat = new Chat()
+            .owner(UPDATED_OWNER)
+            .ownerId(UPDATED_OWNER_ID)
+            .to(UPDATED_TO)
+            .toId(UPDATED_TO_ID)
             .subject(UPDATED_SUBJECT)
             .createdDate(UPDATED_CREATED_DATE)
             .lastMessage(UPDATED_LAST_MESSAGE)
@@ -117,6 +137,10 @@ public class ChatResourceIT {
         List<Chat> chatList = chatRepository.findAll();
         assertThat(chatList).hasSize(databaseSizeBeforeCreate + 1);
         Chat testChat = chatList.get(chatList.size() - 1);
+        assertThat(testChat.getOwner()).isEqualTo(DEFAULT_OWNER);
+        assertThat(testChat.getOwnerId()).isEqualTo(DEFAULT_OWNER_ID);
+        assertThat(testChat.getTo()).isEqualTo(DEFAULT_TO);
+        assertThat(testChat.getToId()).isEqualTo(DEFAULT_TO_ID);
         assertThat(testChat.getSubject()).isEqualTo(DEFAULT_SUBJECT);
         assertThat(testChat.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testChat.getLastMessage()).isEqualTo(DEFAULT_LAST_MESSAGE);
@@ -155,6 +179,10 @@ public class ChatResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chat.getId().intValue())))
+            .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER)))
+            .andExpect(jsonPath("$.[*].ownerId").value(hasItem(DEFAULT_OWNER_ID.intValue())))
+            .andExpect(jsonPath("$.[*].to").value(hasItem(DEFAULT_TO)))
+            .andExpect(jsonPath("$.[*].toId").value(hasItem(DEFAULT_TO_ID.intValue())))
             .andExpect(jsonPath("$.[*].subject").value(hasItem(DEFAULT_SUBJECT)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].lastMessage").value(hasItem(DEFAULT_LAST_MESSAGE.toString())))
@@ -172,6 +200,10 @@ public class ChatResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(chat.getId().intValue()))
+            .andExpect(jsonPath("$.owner").value(DEFAULT_OWNER))
+            .andExpect(jsonPath("$.ownerId").value(DEFAULT_OWNER_ID.intValue()))
+            .andExpect(jsonPath("$.to").value(DEFAULT_TO))
+            .andExpect(jsonPath("$.toId").value(DEFAULT_TO_ID.intValue()))
             .andExpect(jsonPath("$.subject").value(DEFAULT_SUBJECT))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.lastMessage").value(DEFAULT_LAST_MESSAGE.toString()))
@@ -199,6 +231,10 @@ public class ChatResourceIT {
         // Disconnect from session so that the updates on updatedChat are not directly saved in db
         em.detach(updatedChat);
         updatedChat
+            .owner(UPDATED_OWNER)
+            .ownerId(UPDATED_OWNER_ID)
+            .to(UPDATED_TO)
+            .toId(UPDATED_TO_ID)
             .subject(UPDATED_SUBJECT)
             .createdDate(UPDATED_CREATED_DATE)
             .lastMessage(UPDATED_LAST_MESSAGE)
@@ -214,6 +250,10 @@ public class ChatResourceIT {
         List<Chat> chatList = chatRepository.findAll();
         assertThat(chatList).hasSize(databaseSizeBeforeUpdate);
         Chat testChat = chatList.get(chatList.size() - 1);
+        assertThat(testChat.getOwner()).isEqualTo(UPDATED_OWNER);
+        assertThat(testChat.getOwnerId()).isEqualTo(UPDATED_OWNER_ID);
+        assertThat(testChat.getTo()).isEqualTo(UPDATED_TO);
+        assertThat(testChat.getToId()).isEqualTo(UPDATED_TO_ID);
         assertThat(testChat.getSubject()).isEqualTo(UPDATED_SUBJECT);
         assertThat(testChat.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testChat.getLastMessage()).isEqualTo(UPDATED_LAST_MESSAGE);

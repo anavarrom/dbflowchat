@@ -4,6 +4,10 @@ enum ChatType {
 }
 
 entity Chat {
+	owner String,
+    ownerId Long,
+	to String,
+    toId Long,
     subject String,
     createdDate LocalDate,
     lastMessage LocalDate,
