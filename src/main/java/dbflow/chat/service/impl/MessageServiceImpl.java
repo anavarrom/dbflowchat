@@ -61,7 +61,14 @@ public class MessageServiceImpl implements MessageService {
             .map(messageMapper::toDto);
     }
 
-    /**
+	@Override
+	public Page<MessageDTO> findAllOfChat(Long idChat,Pageable pageable) {
+        log.debug("Request to get all Messages from Chat");
+        return messageRepository.findAllByChatId(idChat, pageable)
+            .map(messageMapper::toDto);
+	}
+
+	/**
      * Get one message by id.
      *
      * @param id the id of the entity.
@@ -85,4 +92,5 @@ public class MessageServiceImpl implements MessageService {
         log.debug("Request to delete Message : {}", id);
         messageRepository.deleteById(id);
     }
+
 }

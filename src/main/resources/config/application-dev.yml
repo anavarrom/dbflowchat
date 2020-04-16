@@ -43,9 +43,12 @@ spring:
       port: 8500
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/dbflowchat
-    username: dbflowchat
-    password:
+    url: jdbc:postgresql://localhost:5432/dbFlowChat
+    username: postgres
+    password: postgres
+    # url: jdbc:postgresql://dbflowserver-postgresql:5442/dbFlowServer
+    # username: dbFlowServer
+    # password: dbFlowServer
     hikari:
       poolName: Hikari
       auto-commit: false

@@ -29,6 +29,14 @@ public interface MessageService {
     Page<MessageDTO> findAll(Pageable pageable);
 
     /**
+     * Get all the messages.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<MessageDTO> findAllOfChat(Long idChat, Pageable pageable);
+
+    /**
      * Get the "id" message.
      *
      * @param id the id of the entity.

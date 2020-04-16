@@ -98,6 +98,20 @@ public class MessageResource {
     }
 
     /**
+     * {@code GET  /messages} : get all the messages.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of messages in body.
+     */
+    @GetMapping("/messagesChat/{id}")
+    public ResponseEntity<List<MessageDTO>> getAllMessagesOfChat(@PathVariable Long id, Pageable pageable) {
+        log.debug("REST request to get a page of Messages");
+        Page<MessageDTO> page = messageService.findAllOfChat(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /messages/:id} : get the "id" message.
      *
      * @param id the id of the messageDTO to retrieve.
