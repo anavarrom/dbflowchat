@@ -18,7 +18,9 @@ public class ChatDTO implements Serializable {
 
     private String to;
 
-    private Long toId;
+    private String withContact;
+
+	private Long toId;
 
     private String subject;
 
@@ -101,7 +103,15 @@ public class ChatDTO implements Serializable {
         this.type = type;
     }
 
-    @Override
+    public String getWithContact() {
+		return withContact;
+	}
+
+	public void setWithContact(String with) {
+		this.withContact = with;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

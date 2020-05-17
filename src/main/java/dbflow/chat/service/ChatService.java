@@ -42,4 +42,14 @@ public interface ChatService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    /**
+     * Get all the user chats.
+     *
+     * @param username of the user.
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<ChatDTO> findAllUserChats(String username, Pageable pageable);
+
 }

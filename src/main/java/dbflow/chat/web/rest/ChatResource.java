@@ -1,5 +1,6 @@
 package dbflow.chat.web.rest;
 
+import dbflow.chat.security.SecurityUtils;
 import dbflow.chat.service.ChatService;
 import dbflow.chat.web.rest.errors.BadRequestAlertException;
 import dbflow.chat.service.dto.ChatDTO;
@@ -90,11 +91,45 @@ public class ChatResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of chats in body.
      */
     @GetMapping("/chats")
-    public ResponseEntity<List<ChatDTO>> getAllChats(Pageable pageable) {
-        log.debug("REST request to get a page of Chats");
+    public ResponseEntity<List<ChatDTO>> getAllChats(Pageable pageable) { 
+       boolean isConnected = SecurityUtils.isAuthenticated();
+       if (isConnected) {
+    	   Optional<String> username = SecurityUtils.getCurrentUserLogin();
+    	   log.debug("Connected " + username);              
+       }
+    	log.debug("REST request to get a page of Chats ");
         Page<ChatDTO> page = chatService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /chats} : get all the user chats.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of chats in body.
+     */
+    @GetMapping("/userchats")
+    public ResponseEntity<List<ChatDTO>> getAllUserChats(Pageable pageable) { 
+       boolean isConnected = SecurityUtils.isAuthenticated();
+       if (!isConnected) {
+    	   log.debug("Not Connected ");
+    	   return null;
+       } 
+       Optional<String> username = SecurityUtils.getCurrentUserLogin();
+       log.debug("Connected " + username);              
+       String real_username = username.get();
+       
+       Page<ChatDTO> page = chatService.findAllUserChats(real_username, pageable);
+       page.forEach(chat -> {
+    	   if (chat.getOwner().equals(real_username))
+    		   chat.setWithContact(chat.getTo());
+    	   else 
+    		   chat.setWithContact(chat.getOwner());
+       	}
+       );
+       HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+       return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

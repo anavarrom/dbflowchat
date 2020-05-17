@@ -85,4 +85,12 @@ public class ChatServiceImpl implements ChatService {
         log.debug("Request to delete Chat : {}", id);
         chatRepository.deleteById(id);
     }
+
+	@Override
+	public Page<ChatDTO> findAllUserChats(String username, Pageable pageable) {
+		// TODO Auto-generated method stub
+        log.debug("Requested chats of: {}", username);
+        
+        return chatRepository.findByOwnerOrToOrderByLastMessage(username, username, pageable).map(chatMapper::toDto);
+	}
 }

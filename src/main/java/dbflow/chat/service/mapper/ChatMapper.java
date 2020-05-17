@@ -11,12 +11,20 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface ChatMapper extends EntityMapper<ChatDTO, Chat> {
-
+   
+	/*@BeforeMapping
+    default void beforeMapping(@MappingTarget ChatDTO target, Chat source) {
+        if (source.getPropY().equals("ABC") {
+            target.setPropX("V01.123.456.AB");
+        }
+    }
+	@Mapping(target = "propX", ignore = true) 
+    */
 
     @Mapping(target = "messages", ignore = true)
     @Mapping(target = "removeMessage", ignore = true)
-    Chat toEntity(ChatDTO chatDTO);
-
+    Chat toEntity(ChatDTO chatDTO);  
+    
     default Chat fromId(Long id) {
         if (id == null) {
             return null;
@@ -25,4 +33,5 @@ public interface ChatMapper extends EntityMapper<ChatDTO, Chat> {
         chat.setId(id);
         return chat;
     }
+    
 }
